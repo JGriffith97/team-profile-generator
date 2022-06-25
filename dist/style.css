@@ -29,3 +29,9 @@ body {
   width: 20%;
   margin: 2% 0 0 0
 }
+
+.card-line {
+  border: lightgray 1px solid;
+  padding: 10px;
+  margin: 20px 5px 20px 5px
+}
