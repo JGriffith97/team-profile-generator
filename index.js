@@ -56,7 +56,7 @@ const addNewInternQs = [
   },
   {
     type: 'input',
-    name: 'internSchool',
+    name: 'school',
     message: "Please enter the intern's school.",
   },
 ]
@@ -79,7 +79,7 @@ const addNewEngineerQs = [
   },
   {
     type: 'input',
-    name: 'engineerGithub',
+    name: 'github',
     message: "Please enter the intern's school.",
   },
 ]
@@ -113,7 +113,7 @@ function addManager() {
           generateDocument(answers)
         }
 
-       const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail) 
+       const manager = new Manager(answers.officeNumber)
       newManager(answers)
     })
 }
@@ -125,7 +125,7 @@ function addIntern() {
       .then((answers) => {
         console.log(answers)
 
-        const intern = new Intern(answers.internName, answers.internId, answers.internEmail)
+        const intern = new Intern(answers.school)
         newIntern(answers)
         menu()
     })
@@ -137,6 +137,7 @@ function addEngineer() {
       .then((answers) => {
         console.log(answers)
 
+        const engineer = new Engineer(answers.github)
         newEngineer(answers)
         menu()
     })
@@ -155,6 +156,8 @@ function menu() {
         }
       })
 }
+
+const generateDocument = ({managerName, managerId, managerEmail, officeNumber, internName, internId, internEmail, internSchool, engineerName, engineerId, engineerEmail, engineerGithub})
 
 // ------------------------------------------------------------------------------
 
