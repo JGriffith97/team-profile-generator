@@ -159,6 +159,33 @@ function menu() {
 
 const generateDocument = ({managerName, managerId, managerEmail, officeNumber, internName, internId, internEmail, internSchool, engineerName, engineerId, engineerEmail, engineerGithub})
 
+const data = `<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charser="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/style.css"/>
+    <title>Team Profiles</title>
+  </head>
+
+
+    <body>
+      <header class="header">
+        <h1>Team Profiles</h1>
+      </header>
+
+        <main class = "main-body">
+
+
+        
+        </main>
+
+    </body>
+
+</html>`
+
 // ------------------------------------------------------------------------------
 
 function init() {
