@@ -158,17 +158,26 @@ function menu() {
 // const generateDocument = ({managerName, managerId, managerEmail, officeNumber, internName, internId, internEmail, internSchool, engineerName, engineerId, engineerEmail, engineerGithub})
 
 function teamContent() {
-  let finishedHtml = ''
-  finishedHtml = beginningHtml
-  console.log(team)
-  for (let i = 0; i < team.length; i++) {
-    const employee = team[i]
-    if (employee.getRole() === 'Manager') {
-      finishedHtml += renderManager(employee)
+  let teamCards = ``
+  console.log('Team: ', team)
+  console.log('Testing team-manager: ', team[0])
+    for (let i = 0; i < team.length; i++) {
+      const employee = team[i]
+      if (employee.getRole() === 'Manager') {
+      teamCards += renderManager(employee)
+    } if (employee.getRole() === 'Engineer') {
+      teamCards += renderEngineer(employee)
+    } if (employee.getRole() === 'Intern') {
+      teamCards += renderIntern(employee)
     }
   }
-  finishedHtml += endHtml
-  console.log(finishedHtml)
+    // teamCards += endHtml
+  // console.log(teamCards)
+  const fullHtml = beginningHtml + teamCards + endHtml
+  console.log(fullHtml)
+
+  fs.writeFile("./dist/team.html", fullHtml, (err) =>
+  err ? console.log(err) : console.log('Created team.html!'))
 }
 
 const beginningHtml = `
@@ -189,21 +198,26 @@ const beginningHtml = `
         <h1>Team Profiles</h1>
       </header>
 
-        <main class = "main-body">`
+        <main class = "main-body">
+        `
+
 
 function renderManager(manager) {
 const managerTemplate = `
-<div class = "card">
-  <div class = "card-header">
-    <h4>${manager.getName()}</h4>
-    <hr>
-  </div>
-  <div class = "card-body">
-   <p class = "card-line">ID Number: ${manager.getId()}</p>
-   <p class = "card-line">Email: ${manager.getEmail()}</p>
-   <p class = "card-line">Office Number ${manager.getOfficeNumber()}</p>
-  </div>
-</div>`
+
+          <div class = "card">
+            <div class = "card-header">
+              <h4>${manager.getName()}</h4>
+              <hr>
+            </div>
+            <div class = "card-body">
+            <p class = "card-line">ID Number: ${manager.getId()}</p>
+            <p class = "card-line">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></p>
+            <p class = "card-line">Office Number ${manager.getOfficeNumber()}</p>
+            </div>
+          </div>
+
+`
 return managerTemplate
 }
 
@@ -217,16 +231,18 @@ const engineerTemplate = `
             </div>
             <div class = "card-body">
             <p class = "card-line">ID Number: ${engineer.getId()}</p>
-            <p class = "card-line">Email: ${engineer.getEmail()}</p>
+            <p class = "card-line">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></p>
             <p class = "card-line">GitHub: ${engineer.getGitHub()}</p>
             </div>
           </div>
           
-          `
+`
+return engineerTemplate
 }
 
 function renderIntern(intern) {
 const internTemplate = `
+
           <div class = "card">
             <div class = "card-header">
               <h4>${intern.getName()}</h4>
@@ -234,10 +250,13 @@ const internTemplate = `
             </div>
             <div class = "card-body">
               <p class = "card-line">ID Number: ${intern.getId()}</p>
-              <p class = "card-line">Email: ${intern.getEmail()}</p>
+              <p class = "card-line">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></p>
               <p class = "card-line">School: ${intern.getSchool()}</p>
             </div>
-          </div>`
+          </div>
+          
+`
+return internTemplate
 }        
 
 const endHtml = `
@@ -245,7 +264,8 @@ const endHtml = `
 
     </body>
 
-</html>`
+</html>
+`
 
 // ------------------------------------------------------------------------------
 
