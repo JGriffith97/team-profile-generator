@@ -8,6 +8,7 @@ const Manager = require('./lib/Manager');
 
 // --------------------------------------------------------------------------------
 
+const team = []
 
 const initialQs = [
   {
@@ -65,22 +66,22 @@ const addNewEngineerQs = [
   {
     type: 'input',
     name: 'engineerName',
-    message: "Please enter the intern's name.",
+    message: "Please enter the engineer's name.",
   },
   {
     type: 'input',
     name: 'engineerId',
-    message: "Please enter the intern's employee ID number.",
+    message: "Please enter the engineer's employee ID number.",
   },
   {
     type: 'input',
     name: 'engineerEmail',
-    message: "Please enter the intern's email address.",
+    message: "Please enter the engineer's email address.",
   },
   {
     type: 'input',
     name: 'github',
-    message: "Please enter the intern's school.",
+    message: "Please enter the engineer's GitHub.",
   },
 ]
 
@@ -102,19 +103,18 @@ function addManager() {
     .prompt(initialQs)
       .then((answers) => {
         console.log(answers)
+        const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.officeNumber)
+        team.push(manager)
 
         if (answers.addTeamMemberQ === 'Finish Team') {
-          generateDocument(answers)
+          teamContent()
         } else if (answers.addTeamMemberQ === 'New Intern') {
           addIntern()
-          generateDocument(answers)
+          // generateDocument(answers)
         } else if (answers.addTeamMemberQ === 'New Engineer') {
           addEngineer()
-          generateDocument(answers)
+          // generateDocument(answers)
         }
-
-       const manager = new Manager(answers.officeNumber)
-      newManager(answers)
     })
 }
 
@@ -124,9 +124,8 @@ function addIntern() {
     .prompt(addNewInternQs)
       .then((answers) => {
         console.log(answers)
-
-        const intern = new Intern(answers.school)
-        newIntern(answers)
+        const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.school)
+        team.push(intern)
         menu()
     })
 }
@@ -136,9 +135,8 @@ function addEngineer() {
     .prompt(addNewEngineerQs)
       .then((answers) => {
         console.log(answers)
-
-        const engineer = new Engineer(answers.github)
-        newEngineer(answers)
+        const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.github)
+        team.push(engineer)
         menu()
     })
 }
@@ -152,14 +150,29 @@ function menu() {
         } else if (answers.addTeamOrSubmit === 'New Engineer') {
           addEngineer()
         } else if (answers.addTeamOrSubmit === 'Finish Team') {
-          generateDocument()
+          teamContent()
         }
       })
 }
 
-const generateDocument = ({managerName, managerId, managerEmail, officeNumber, internName, internId, internEmail, internSchool, engineerName, engineerId, engineerEmail, engineerGithub})
+// const generateDocument = ({managerName, managerId, managerEmail, officeNumber, internName, internId, internEmail, internSchool, engineerName, engineerId, engineerEmail, engineerGithub})
 
-const data = `<!DOCTYPE html>
+function teamContent() {
+  let finishedHtml = ''
+  finishedHtml = beginningHtml
+  console.log(team)
+  for (let i = 0; i < team.length; i++) {
+    const employee = team[i]
+    if (employee.getRole() === 'Manager') {
+      finishedHtml += renderManager(employee)
+    }
+  }
+  finishedHtml += endHtml
+  console.log(finishedHtml)
+}
+
+const beginningHtml = `
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -176,10 +189,58 @@ const data = `<!DOCTYPE html>
         <h1>Team Profiles</h1>
       </header>
 
-        <main class = "main-body">
+        <main class = "main-body">`
 
+function renderManager(manager) {
+const managerTemplate = `
+<div class = "card">
+  <div class = "card-header">
+    <h4>${manager.getName()}</h4>
+    <hr>
+  </div>
+  <div class = "card-body">
+   <p class = "card-line">ID Number: ${manager.getId()}</p>
+   <p class = "card-line">Email: ${manager.getEmail()}</p>
+   <p class = "card-line">Office Number ${manager.getOfficeNumber()}</p>
+  </div>
+</div>`
+return managerTemplate
+}
 
-        
+function renderEngineer(engineer) {
+const engineerTemplate = `
+
+          <div class = "card">
+            <div class = "card-header">
+              <h4>${engineer.getName()}</h4>
+              <hr>
+            </div>
+            <div class = "card-body">
+            <p class = "card-line">ID Number: ${engineer.getId()}</p>
+            <p class = "card-line">Email: ${engineer.getEmail()}</p>
+            <p class = "card-line">GitHub: ${engineer.getGitHub()}</p>
+            </div>
+          </div>
+          
+          `
+}
+
+function renderIntern(intern) {
+const internTemplate = `
+          <div class = "card">
+            <div class = "card-header">
+              <h4>${intern.getName()}</h4>
+              <hr>
+            </div>
+            <div class = "card-body">
+              <p class = "card-line">ID Number: ${intern.getId()}</p>
+              <p class = "card-line">Email: ${intern.getEmail()}</p>
+              <p class = "card-line">School: ${intern.getSchool()}</p>
+            </div>
+          </div>`
+}        
+
+const endHtml = `
         </main>
 
     </body>
@@ -191,3 +252,5 @@ const data = `<!DOCTYPE html>
 function init() {
   addManager()
 }
+
+init()
