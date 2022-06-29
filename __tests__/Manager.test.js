@@ -1,5 +1,6 @@
 const Manager = require("../lib/Manager")
 
+// Positive ---------------------------------------------------------------------------------------------------------------------
 describe('Manager', () => {
   describe('getOfficeNumber', () => {
     it('should list the name of the employee specified by "this.officeNumber".', () => {
@@ -11,3 +12,4 @@ describe('Manager', () => {
     })
   })
 })
+//-------------------------------------------------------------------------------------------------------------------------------
