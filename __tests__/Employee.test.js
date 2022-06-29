@@ -7,12 +7,13 @@
 const Employee = require("../lib/Employee");
 
 describe('Employee', () => {
-  descrive('getName', () => {
-    it('should list the name of the employee specified by "this.name".')
+  describe('getName', () => {
+    it('should list the name of the employee specified by "this.name".', () => {
       const empName = "John";
 
       const newEmp = new Employee("John", 1, "JohnJc@placeholder.com")
 
       expect(newEmp.name).toEqual(empName)
+    })
   })
 })
