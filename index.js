@@ -171,8 +171,6 @@ function teamContent() {
       teamCards += renderIntern(employee)
     }
   }
-    // teamCards += endHtml
-  // console.log(teamCards)
   const fullHtml = beginningHtml + teamCards + endHtml
   console.log(fullHtml)
 
