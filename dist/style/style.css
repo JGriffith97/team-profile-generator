@@ -32,7 +32,8 @@ body {
 
 .card-line {
   padding: 10px;
-  margin: 20px 0 20px 0
+  margin: 20px 0 20px 0;
+  overflow-wrap: break-word;
 }
 
 /* .card-line:last-child {
