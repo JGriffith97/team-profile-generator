@@ -81,7 +81,7 @@ const addNewEngineerQs = [
   {
     type: 'input',
     name: 'github',
-    message: "Please enter the engineer's GitHub.",
+    message: "Please enter the engineer's GitHub username.",
   },
 ]
 
@@ -232,7 +232,7 @@ const engineerTemplate = `
             <div class = "card-body">
             <p class = "card-line">ID Number: ${engineer.getId()}</p>
             <p class = "card-line">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></p>
-            <p class = "card-line">GitHub: ${engineer.getGitHub()}</p>
+            <p class = "card-line">GitHub: <a href="https://github.com/${engineer.getGitHub()}">${engineer.getGitHub()}</a></p>
             </div>
           </div>
           
