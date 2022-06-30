@@ -34,7 +34,10 @@ Go to https://github.com/JGriffith97/team-profile-generator and Fork the reposit
 ---
 ## Tests
 
--Tests Placeholder-
+In order to run the tests (using the Jest module, included with the dependencies), from the root directory (team-profile-generator), type the following: 
+```bash
+npm run test
+``` 
 
 ---
 ## Questions
