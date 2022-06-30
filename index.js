@@ -35,7 +35,7 @@ const initialQs = [
     type: 'list',
     name: 'addTeamMemberQ',
     message: "Add another team member? Or submit finished team?",
-    choices: ['New Intern', 'New Engineer', 'Finish Team']
+    choices: ['New Engineer', 'New Intern', 'Finish Team']
   },
 ]
 
