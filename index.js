@@ -90,7 +90,7 @@ const menuQs = [
     type: 'list',
     name: 'addTeamOrSubmit',
     message: 'Add new team member? Or finish the team?',
-    choices: ['New Intern', 'New Engineer', 'Finish Team']
+    choices: ['New Engineer', 'New Intern', 'Finish Team']
   }
 ]
 
